@@ -123,6 +123,7 @@ export class CreateLoansAccountComponent extends LoanProductBaseComponent implem
       this.loansAccountProductTemplate = templateData.loanData;
       this.loansAccountProductTemplate.options = {
         breachOptions: templateData.breachOptions,
+        nearBreachOptions: templateData.nearBreachOptions,
         delinquencyBucketOptions: templateData.delinquencyBucketOptions,
         fundOptions: templateData.fundOptions,
         periodFrequencyTypeOptions: templateData.periodFrequencyTypeOptions,
@@ -289,6 +290,13 @@ export class CreateLoansAccountComponent extends LoanProductBaseComponent implem
         this.productDetails.allowAttributeOverrides.discountDefault === false
       ) {
         delete payload['discount'];
+      }
+      if (
+        !Object.hasOwn(this.productDetails.allowAttributeOverrides, 'breach') ||
+        this.productDetails.allowAttributeOverrides.breach === false
+      ) {
+        delete payload['breachId'];
+        delete payload['nearBreachId'];
       }
     }
 
